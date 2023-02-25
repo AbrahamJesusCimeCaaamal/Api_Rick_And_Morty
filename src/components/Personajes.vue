@@ -15,6 +15,7 @@ export default {
       infoUno:[],
       personaje: [],
       mostrar: false,
+      inicio:true,
     }
   },
 
@@ -74,6 +75,7 @@ export default {
       })
       this.id++
       this.mostrar=true
+      this.inicio=false
       console.log(this.mostrar)
     }
   },
@@ -135,6 +137,24 @@ export default {
 
      <h1 class="text-3xl py-3 text-center font-bold text--900 border-cyan-500">Información del personaje</h1>
      <h2 class="text-2xl text-center" > <strong>{{ infoUno.name}}</strong></h2>
+<!-- Información de inicio de carga-->
+
+<div v-if="inicio">
+        
+        <div class="personaje">
+          
+            <div class=" object-center  m-16  px-32 py-36   ">
+          
+          <img class=" px-1 py-1  scale-150   bg-black" src="./rich.gif" width="1500" height="1500" alt="Funny image">
+          </div> 
+          
+        </div>
+        
+      </div>
+
+
+
+
       <!--carta de personaje-->
       <div v-if="mostrar">
         
