@@ -103,8 +103,8 @@ export default {
   <!--buscador por nombre por pagina-->
   <div class="flex justify-align-center mx-auto  my-5 ">
       
-      <h3 class="text-2xl text-center my-3 mx-5 sm:py-2">Buscar</h3>
-      <input type="text" v-model="search" placeholder="Buscar por nombre">
+      <h3 class="text-2xl text-center  mx-5 sm:py-2"> <strong>Buscar  </strong></h3>
+      <input class=" rounded-full py-2 px-4" type="text" v-model="search" placeholder= "Buscar por nombre o id">
     </div>
 
 
