@@ -1,92 +1,35 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
+import { RouterLink, RouterView } from 'vue-router'
+
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
+  <header class="">
+    <div class="text-center rounded-full bg-amber-200 px-4 py-6">
+    <h1 class="text-4xl font-bold  text-lime-700 "><strong>---Personajes de la serie The Rick and Morty---</strong> </h1>
+  </div><br>
+  <div class=" bg-white px-4 py-4 ">
+  
     <div class="wrapper">
       <HelloWorld msg="Personajes de Rick & Morty" />
 
-      <nav>
-        <RouterLink to="/">Inicio</RouterLink>
-        <RouterLink to="/personajes">Personajes</RouterLink>
-        <RouterLink to="/about">Acerca de</RouterLink>
+      
+      <nav class="grid grid-cols-3 divide-x text-center">
+      
+        <RouterLink class="text-xl  bg-green-400 hover:bg-green-500 hover:text-2xl" to="/"> <strong>Inicio</strong> </RouterLink>
+        <RouterLink class=" text-xl   bg-blue-400 hover:bg-blue-500 hover:text-2xl"  to="/personajes"> <strong>Personajes </strong> </RouterLink>
+        <RouterLink class=" text-xl   bg-red-400 hover:bg-red-500  hover:text-2xl"  to="/about"> <strong> Acerca de </strong> </RouterLink>
+
       </nav>
+
+      
     </div>
-  </header>
+
 
   <RouterView />
+  </div>
+  
+  </header>
+
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
