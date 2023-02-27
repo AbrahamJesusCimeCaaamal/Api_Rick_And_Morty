@@ -22,7 +22,8 @@ export default {
       personaje: [],
       mostrar: false,
       inicio:true,
-      moscarta:false,
+      moscarta:true,
+      mosbusqueda:false,
     }
   },
 
@@ -90,8 +91,14 @@ export default {
     },
 
     buscar(search)  { 
-
-    if(!isNaN (search) === true) {
+      if (search===""){
+        this.moscarta = true
+        this.mosbusqueda= false
+      }
+      else{
+        this.moscarta=false
+        this.mosbusqueda= true
+        if(!isNaN (search) === true) {
       API_URL='https://rickandmortyapi.com/api/character/'+search
       axios.get(API_URL) 
       .then((response) => {
@@ -113,7 +120,9 @@ export default {
       this.resultaID = false
     } 
       
-  },
+  }
+      }
+    
   },
 
   }
@@ -131,21 +140,17 @@ export default {
   <div class="flex justify-align-center mx-auto  my-5 ">
       
       <h3 class="text-2xl text-center  mx-5 sm:py-2"> <strong>Buscar  </strong></h3>
-      <input class=" rounded-full py-2 px-4" type="text" v-model="busqueda" @input= buscar(busqueda) placeholder= "Buscar por nombre o id">
+      <input class=" rounded-full py-2 px-4" type="text" v-model="busqueda"  @input = "buscar(busqueda)" placeholder= "Buscar por nombre o id">
+      
     </div>
 
 
 
 
-</div>
-<!--Resultados Buscador-->
-
-  <!--si recibe true en la variable mostrarBuscadosID
-      ES QUE BUSCO UN PERSONAJE POR SU ID-->
-      <div v-if="resultaID" class="container flex flex-col items-center mx-auto md:flex md:gap-4" >
-    <!--Recorre la nueva lista y por cada personaje que encuentra-->    
+</div >
+     <div v-if="mosbusqueda">
+      <div v-if="resultaID " class="container flex flex-col items-center mx-auto md:flex md:gap-4" >  
     <div class="buscado por id ">
-      <!--muestra en pantalla la carta de personaje-->
       <img :src="resulta.image" alt="">
       <div class="info-buscados">
         <h2> Id {{ resulta.id}}</h2>
@@ -156,12 +161,9 @@ export default {
     </div>      
   </div>
 
-  <!--si no recibe true en la variable mostrarBuscados
-      ENCONTRO VARIOS PERSONAJES POR SU NOMBRE-->
-  <div v-if="resultaNombre">
-    <!--Recorre la nueva lista y por cada personaje que encuentra-->    
+
+  <div v-if="resultaNombre" >  
     <div class="buscados" v-for="resul in resulta">
-      <!--muestra en pantalla la carta de personaje-->
       <img :src="resul.image" alt="">
       <div class="info-buscados">
         <h2> Id {{ resul.id}}</h2>
@@ -172,10 +174,11 @@ export default {
     </div>      
   </div>
 
+     </div>
 
 
 
-<div class="grid grid-cols-2 text-left">
+<div v-if="moscarta" class="grid grid-cols-2 text-left">
     <div class="bg-purple-200">
       <!--Listado de cada 20 personajes o sea pagina-->
       <div class="text-2xl my-10 text-black mx-5 sm:py-2">
@@ -187,7 +190,7 @@ export default {
           </li>
         </ul>
       </div>
-      <div class="px-44 space-x-0.5">
+      <div class="px-44 space-x-0.5 py-4">
 <button class="border-2 border-rose-600  bg-blue-400 px-4 p-1 text-lg" v-on:click="pagRe(cont)">Anterior </button>
 <button class="border-2  border-black  bg-red-400 px-4  p-1 text-lg" @auxclick="pag(cont)">{{ cont }}</button>
 <button class="border-2 border-rose-600  bg-blue-400 px-4 p-1 text-lg" v-on:click="pag(cont)">Siguiente </button>
@@ -240,6 +243,6 @@ export default {
         
       </div>
     </div>
-  </div>
+  </div><br>
  
 </template>
