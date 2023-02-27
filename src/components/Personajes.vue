@@ -10,15 +10,19 @@ export default {
       info: [],
       personajes: [],
       cont:2,
+
+
       search:"",
-      resultados:[],
-      resultadoID:false,
-      resultadoNombre:false,
+      resulta:[],
+      resultaID:false,
+      resultaNombre:false,
+
       id: 0,
       infoUno:[],
       personaje: [],
       mostrar: false,
       inicio:true,
+      moscarta:false,
     }
   },
 
@@ -83,20 +87,35 @@ export default {
       this.mostrar=true
       this.inicio=false
       console.log(this.mostrar)
-    }
-  },
-
-    computed: {
-    //metodo para buscar
-    filtrarBusqueda(){
-      //busca en cada personaje
-      return this.personajes.filter((personaje) => {
-        //busca en el nombre del personaje
-        return personaje.name.toLowerCase().includes(this.search.toLowerCase())
-      })
     },
 
-  }
+    buscar(search)  { 
+
+    if(!isNaN (search) === true) {
+      API_URL='https://rickandmortyapi.com/api/character/'+search
+      axios.get(API_URL) 
+      .then((response) => {
+        console.log(response.data)
+        this.resulta = response.data;
+        console.log(this.resulta)
+      })
+      this.resultaID = true
+      this.resultaNombre = false
+    }
+    else{              
+      API_URL='https://rickandmortyapi.com/api/character/?name='+search
+      axios.get(API_URL)
+      .then((response) => {
+        this.resulta = response.data.results;
+        console.log(this.resultados)
+      })
+      this.resultaNombre  = true
+      this.resultaID = false
+    } 
+      
+  },
+  },
+
   }
 
   
@@ -112,13 +131,50 @@ export default {
   <div class="flex justify-align-center mx-auto  my-5 ">
       
       <h3 class="text-2xl text-center  mx-5 sm:py-2"> <strong>Buscar  </strong></h3>
-      <input class=" rounded-full py-2 px-4" type="text" v-model="search" placeholder= "Buscar por nombre o id">
+      <input class=" rounded-full py-2 px-4" type="text" v-model="busqueda" @input= buscar(busqueda) placeholder= "Buscar por nombre o id">
     </div>
 
 
 
 
 </div>
+<!--Resultados Buscador-->
+
+  <!--si recibe true en la variable mostrarBuscadosID
+      ES QUE BUSCO UN PERSONAJE POR SU ID-->
+      <div v-if="resultaID" class="container flex flex-col items-center mx-auto md:flex md:gap-4" >
+    <!--Recorre la nueva lista y por cada personaje que encuentra-->    
+    <div class="buscado por id ">
+      <!--muestra en pantalla la carta de personaje-->
+      <img :src="resulta.image" alt="">
+      <div class="info-buscados">
+        <h2> Id {{ resulta.id}}</h2>
+        <h2> Nombre {{ resulta.name}}</h2>
+        <h4> Especie {{ resulta.species}}</h4>
+        <h4> Estado {{ resulta.status}}</h4>
+      </div>
+    </div>      
+  </div>
+
+  <!--si no recibe true en la variable mostrarBuscados
+      ENCONTRO VARIOS PERSONAJES POR SU NOMBRE-->
+  <div v-if="resultaNombre">
+    <!--Recorre la nueva lista y por cada personaje que encuentra-->    
+    <div class="buscados" v-for="resul in resulta">
+      <!--muestra en pantalla la carta de personaje-->
+      <img :src="resul.image" alt="">
+      <div class="info-buscados">
+        <h2> Id {{ resul.id}}</h2>
+        <h2> Nombre {{ resul.name}}</h2>
+        <h4> Especie {{ resul.species}}</h4>
+        <h4> Estado {{ resul.status}}</h4>
+      </div>
+    </div>      
+  </div>
+
+
+
+
 <div class="grid grid-cols-2 text-left">
     <div class="bg-purple-200">
       <!--Listado de cada 20 personajes o sea pagina-->
