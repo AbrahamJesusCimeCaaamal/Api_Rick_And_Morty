@@ -11,6 +11,9 @@ export default {
       personajes: [],
       cont:2,
       search:"",
+      resultados:[],
+      resultadoID:false,
+      resultadoNombre:false,
       id: 0,
       infoUno:[],
       personaje: [],
@@ -31,32 +34,35 @@ export default {
   methods: {
 
     //metodo para pagina anterior
-    pagRe(num) {
-      API_URL='https://rickandmortyapi.com/api/character/?page='+(num-1)
-      console.log(API_URL)
-      axios.get(API_URL)
+    pagRe() {
+      axios.get(this.info.prev)
       .then((response) => {
-        console.log(response.config)
         this.info = response.data.info;
-        console.log(this.info)
         this.personajes = response.data.results;
       })
-      this.cont = this.cont-1
+      if (this.cont < 3){
+        this.cont == this.cont
+
+      }else{
+         this.cont = this.cont - 1
+      }
       
       
     },
     //metodo para pagina siguiente
-    pag(num) {
-      API_URL='https://rickandmortyapi.com/api/character/?page='+num
-      console.log(API_URL)
-      axios.get(API_URL)
+    pag() {
+       axios.get(this.info.next)
       .then((response) => {
-        console.log(response.config)
+        
         this.info = response.data.info;
-        console.log(this.info)
         this.personajes = response.data.results;
       })
-      this.cont++
+      if (this.cont > 41){
+        this.cont == this.cont
+
+      }else{
+        this.cont = this.cont + 1
+      }
     },
       //informacion de un personaje
   InfoPer(id) {
