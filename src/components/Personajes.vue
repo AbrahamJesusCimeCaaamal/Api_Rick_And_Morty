@@ -99,26 +99,26 @@ export default {
         this.moscarta=false
         this.mosbusqueda= true
         if(!isNaN (search) === true) {
-      API_URL='https://rickandmortyapi.com/api/character/'+search
-      axios.get(API_URL) 
-      .then((response) => {
-        console.log(response.data)
-        this.resulta = response.data;
-        console.log(this.resulta)
-      })
-      this.resultaID = true
-      this.resultaNombre = false
-    }
-    else{              
-      API_URL='https://rickandmortyapi.com/api/character/?name='+search
-      axios.get(API_URL)
-      .then((response) => {
-        this.resulta = response.data.results;
-        console.log(this.resultados)
-      })
-      this.resultaNombre  = true
-      this.resultaID = false
-    } 
+          API_URL='https://rickandmortyapi.com/api/character/'+search
+          axios.get(API_URL) 
+          .then((response) => {
+            console.log(response.data)
+            this.resulta = response.data;
+            console.log(this.resulta)
+          })
+          this.resultaID = true
+          this.resultaNombre = false
+        }
+        else{              
+          API_URL='https://rickandmortyapi.com/api/character/?name='+search
+          axios.get(API_URL)
+          .then((response) => {
+            this.resulta = response.data.results;
+            console.log(this.resultados)
+          })
+          this.resultaNombre  = true
+          this.resultaID = false
+        } 
       
   }
       }
@@ -149,9 +149,9 @@ export default {
 
 </div >
      <div v-if="mosbusqueda">
-      <div v-if="resultaID " class="container flex flex-col items-center mx-auto md:flex md:gap-4" >  
-    <div class="buscado por id ">
-      <img :src="resulta.image" alt="">
+      <div v-if="resultaID " class="flex mx-auto justify-center items-center space-x-4 text-base my-2"  >  
+    <div class="w-1/4 mx-auto my-auto p-3 border-4 border-black bg-white rounded-sm">
+      <img :src="resulta.image" alt="" class="pb-4 drop-shadow-xl rounded-md">
       <div class="info-buscados">
         <h2> Id {{ resulta.id}}</h2>
         <h2> Nombre {{ resulta.name}}</h2>
@@ -162,9 +162,9 @@ export default {
   </div>
 
 
-  <div v-if="resultaNombre" >  
-    <div class="buscados" v-for="resul in resulta">
-      <img :src="resul.image" alt="">
+  <div v-if="resultaNombre" class="grid grid-cols-3 divide-x-0.5 justify-center items-center text-base my-2 p-3 mx-2" >  
+    <div class=" my-5 mx-auto p-3 border-4 border-black bg-white rounded-sm" v-for="resul in resulta">
+      <img :src="resul.image" alt="" class="pb-4 drop-shadow-xl rounded-md">
       <div class="info-buscados">
         <h2> Id {{ resul.id}}</h2>
         <h2> Nombre {{ resul.name}}</h2>
